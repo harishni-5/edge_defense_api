@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Edge Defense Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* ---- design tokens: one palette, light + dark. Series colours follow the validated reference palette. ---- */
+:root{
+  color-scheme:light;
+  --font-ui:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --font-read:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --side:248px;
+  --bg:#f2f3f1; --panel:#fcfcfb; --panel2:#f0f1ee;
+  --ink:#0d1210; --ink2:#464a46; --muted:#6c716b; --line:#dfe1dc;
+  --accent:#256abf; --accent-ink:#ffffff; --accent-strong:#184f95; --accent-soft:#e4eefa;
+  --bad:#d03b3b; --bad-soft:#fbe9e8; --bad-ink:#a42a2a;
+  --good:#0ca30c; --good-soft:#e3f4e3; --good-ink:#0a6a0a;
+  --warn:#fab219; --warn-soft:#fdf1d3; --warn-ink:#7a5000;
+  --tip-bg:#161a17; --tip-ink:#f3f4f1;
+  --code-bg:#161a17; --code-ink:#dfe3dc;
+  --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s7:#4a3aa7; --s8:#e34948;
+  --div-pos:#e34948; --div-neg:#2a78d6; --div-mid:#f0efec;
+  --grid:#e6e8e3; --axis:#b9bdb6; --surface:#fcfcfb;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111312; --panel:#1a1c1b; --panel2:#232624;
+    --ink:#f1f3ef; --ink2:#c3c6bd; --muted:#8e938a; --line:#2f332f;
+    --accent:#4a93ec; --accent-ink:#06101d; --accent-strong:#8bbcf5; --accent-soft:#1b2a3d;
+    --bad:#e66767; --bad-soft:#3a1f20; --bad-ink:#f2a1a1;
+    --good:#2fbf2f; --good-soft:#17301a; --good-ink:#7ad67a;
+    --warn:#fab219; --warn-soft:#35290d; --warn-ink:#f5c553;
+    --tip-bg:#f1f3ef; --tip-ink:#111312;
+    --code-bg:#0d0f0e; --code-ink:#d6dad2;
+    --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s7:#9085e9; --s8:#e66767;
+    --div-pos:#e66767; --div-neg:#3987e5; --div-mid:#383835;
+    --grid:#2a2d2a; --axis:#4a4e49; --surface:#1a1c1b;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111312; --panel:#1a1c1b; --panel2:#232624;
+  --ink:#f1f3ef; --ink2:#c3c6bd; --muted:#8e938a; --line:#2f332f;
+  --accent:#4a93ec; --accent-ink:#06101d; --accent-strong:#8bbcf5; --accent-soft:#1b2a3d;
+  --bad:#e66767; --bad-soft:#3a1f20; --bad-ink:#f2a1a1;
+  --good:#2fbf2f; --good-soft:#17301a; --good-ink:#7ad67a;
+  --warn:#fab219; --warn-soft:#35290d; --warn-ink:#f5c553;
+  --tip-bg:#f1f3ef; --tip-ink:#111312;
+  --code-bg:#0d0f0e; --code-ink:#d6dad2;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70; --s4:#c98500; --s5:#d55181; --s7:#9085e9; --s8:#e66767;
+  --div-pos:#e66767; --div-neg:#3987e5; --div-mid:#383835;
+  --grid:#2a2d2a; --axis:#4a4e49; --surface:#1a1c1b;
+}
+body{background:var(--bg);color:var(--ink)}
+</style>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="iconbtn menu-btn" id="menuBtn" aria-label="Open navigation" type="button"></button>
+  <a class="brand" href="#overview">
+    <span class="mark" id="brandMark"></span>
+    <span>Edge Defense Lab<small>Enterprise + IoT intrusion detection</small></span>
+  </a>
+  <span class="grow"></span>
+  <button class="btn sm" id="paletteBtn" type="button" aria-label="Jump to page, section or reference"><span id="searchIc"></span><span class="hide-sm">Jump to…</span><span class="chip hide-sm" id="kbdHint">Ctrl K</span></button>
+  <span class="badge-live hide-sm" id="engineBadge"><i></i>Models running in your browser</span>
+  <button class="iconbtn" id="themeBtn" aria-label="Toggle colour theme" type="button"></button>
+</header>
+<div class="shell">
+  <nav class="side" id="side" aria-label="Sections"></nav>
+  <main id="main" tabindex="-1"><div class="page" id="page"><div class="loading">Loading models…</div></div></main>
+</div>
+<div class="scrim" id="scrim"></div>
+<div class="tip" id="tip" role="tooltip"></div>
+<div id="paletteRoot"></div>
+
+<script src="data/models.js"></script>
+<script src="data/pool.js"></script>
+<script src="data/monitor.js"></script>
+<script src="data/shapdep.js"></script>
+<script src="data/paper.js"></script>
+<script src="data/results.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/core.js"></script>
+<script src="js/lab.js"></script>
+<script src="js/p_overview.js"></script>
+<script src="js/p_paper.js"></script>
+<script src="js/p_results.js"></script>
+<script src="js/p_results2.js"></script>
+<script src="js/p_sim.js"></script>
+<script src="js/p_tools.js"></script>
+<script src="js/p_tools2.js"></script>
+<script src="js/p_misc.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

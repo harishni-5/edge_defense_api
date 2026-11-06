@@ -1,0 +1,30 @@
+{
+  "note": "warmup=30 calls excluded from timing; measured under cgroup: 1 CPU core quota, 1GB memory cap (Pi 4-class proxy)",
+  "tier1_predict_only": {
+    "mean_ms": 1.9968843239998932,
+    "p50_ms": 1.9330310000214013,
+    "p95_ms": 2.3733124499756286,
+    "p99_ms": 3.0977318000236664,
+    "max_ms": 4.196147000016026,
+    "mem_mb_before": 321.282048,
+    "mem_mb_after": 321.286144
+  },
+  "tier2_predict_plus_shap": {
+    "mean_ms": 4.91018947599423,
+    "p50_ms": 4.701504999957251,
+    "p95_ms": 5.9459428499963,
+    "p99_ms": 7.040099579957085,
+    "max_ms": 8.922794000000067,
+    "mem_mb_before": 322.531328,
+    "mem_mb_after": 322.531328
+  },
+  "tier3_predict_shap_drift": {
+    "mean_ms": 10.027523644001576,
+    "p50_ms": 9.82436350000171,
+    "p95_ms": 11.516084399988813,
+    "p99_ms": 12.441547310047552,
+    "max_ms": 15.073003999987122,
+    "mem_mb_before": 322.6624,
+    "mem_mb_after": 322.678784
+  }
+}

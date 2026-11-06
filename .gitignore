@@ -1,0 +1,32 @@
+# ---- Huge raw datasets (not fit for GitHub; re-download from public sources) ----
+dataset/
+CSV/
+
+# ---- Other local-only folders ----
+Claude outputs/
+edge-defense-site-deploy/
+edge-defense-ui/
+
+# ---- OS / editor cruft ----
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# ---- Python ----
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# ---- Env / secrets (just in case) ----
+.env
+.env.*
+*.pem
+*.key
